@@ -12,6 +12,5 @@ class Photo
 
   def photo_url
     get_json[:photos][:results][0][:urls][:raw]
-    # require "pry"; binding.pry
   end
 end
