@@ -9,8 +9,7 @@ class GeolocationService
   end
 
   def connection
-    return @conn if @conn
-    @conn = Faraday.new(
+    Faraday.new(
       url: 'https://maps.googleapis.com/maps/api/geocode/json?',
       params: {
               key: ENV['GOOGLE_API_KEY'],
