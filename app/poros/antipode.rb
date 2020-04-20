@@ -2,6 +2,9 @@ class Antipode
   def initialize(location)
     @id = nil
     @connection = AntipodeService.new(location).connection
+    @forecast = Weather.new(location).current_weather
+    @city_name = ReverseGeo(Antipode)
+    @coords = Geolocation.new(location).coords
   end
 
   def get_coords
