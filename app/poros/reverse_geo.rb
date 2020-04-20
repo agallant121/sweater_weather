@@ -5,8 +5,14 @@ class ReverseGeo
       @connection = ReverseGeoService.new(@lat, @long).connection
     end
 
+
+    def get_city_name
+      get_reverse_geo_json[:results][0][:address_components][2][:long_name]
+    end
+
+    private
+
     def get_reverse_geo_json
-      x = JSON.parse(@connection.get.body, symbolize_names: true)
-      require "pry"; binding.pry
+      JSON.parse(@connection.get.body, symbolize_names: true)
     end
 end
