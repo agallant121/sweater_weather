@@ -12,20 +12,22 @@ RSpec.describe "As a user" do
     expect(result[:attributes].keys).to include(:api_key)
   end
 
-  xit 'gets 400 response if passwords do not match' do
+  it 'gets 400 response if passwords do not match' do
     post '/api/v1/users?email=agallant121@gmail.com&password=penny&password_confirmation=pnny'
 
     expect(response.status).to eq(400)
     result = JSON.parse(response.body, symbolize_names: true)
-    expect(result[:password_confirmation][0]).to eq("doesn't match Password")
+    # require "pry"; binding.pry
+    expect(result[0]).to eq("Password confirmation doesn't match Password")
   end
 
-  xit 'gets 400 response if passwords do not match' do
-    post '/api/v1/users?email=agallant121@gmail.com&password=penny&password_confirmation=pnny'
-    post '/api/v1/users?email=agallant121@gmail.com&password=penny&password_confirmation=pnny'
+  it 'gets 400 response if email is not unique' do
+    post '/api/v1/users?email=agallant121@gmail.com&password=penny&password_confirmation=penny'
+    post '/api/v1/users?email=agallant121@gmail.com&password=penny&password_confirmation=penny'
 
     expect(response.status).to eq(400)
     result = JSON.parse(response.body, symbolize_names: true)
-    expect(result[:email][0]).to eq("make an error on purpose")
+    # require "pry"; binding.pry
+    expect(result[0]).to eq("Email has already been taken")
   end
 end
