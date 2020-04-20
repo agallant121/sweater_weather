@@ -7,5 +7,6 @@ RSpec.describe 'As a user', type: :request do
     get "/api/v1/antipode?location=#{location}"
 
     expect(response).to be_successful
+    ##more tests were about to be written
   end
 end
