@@ -24,7 +24,12 @@ RSpec.describe 'antipode' do
     expect(new_coords.coords.count).to eq(2)
   end
 
-  it "text" do
+  it "gets the weather for new location" do
+    antipode_info = Antipode.new('Hong Kong')
+    reverse_city = ReverseGeo.new(antipode_info.get_lat, antipode_info.get_long)
+    new_coords = Geolocation.new(reverse_city.get_city_name)
+    weather = Weather.new(reverse_city.get_city_name)
 
+    expect(weather.current_weather.count.class).to be(Integer)
   end
 end
