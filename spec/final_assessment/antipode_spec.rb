@@ -13,6 +13,6 @@ RSpec.describe 'antipode' do
     antipode_info = Antipode.new('Hong Kong')
     reverse_city = ReverseGeo.new(antipode_info.get_lat, antipode_info.get_long)
 
-    expect(reverse_city.get_reverse_geo_json).to eq(String)
+    expect(reverse_city.get_reverse_geo_json).to eq("String")
   end
 end

@@ -5,13 +5,11 @@ class ReverseGeoService
   end
 
   def connection
-    conn = Faraday.new(
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?',
+    Faraday.new(
+      url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=#{@lat}, #{@long}",
       params: {
         key: ENV['GOOGLE_API_KEY'],
-        latlng: @lat,@long
+        # latlng: @lat, @long,
       })
-
-      require "pry"; binding.pry
   end
 end
