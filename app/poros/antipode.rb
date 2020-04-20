@@ -4,12 +4,7 @@ class Antipode
     @connection = AntipodeService.new(location).connection
   end
 
-  def get_antipode_json
-    JSON.parse(@connection.get.body, symbolize_names: true)[:data]
-  end
-
   def get_coords
-    # require "pry"; binding.pry
     get_antipode_json[:attributes]
   end
 
@@ -17,7 +12,17 @@ class Antipode
     get_antipode_json[:attributes][:lat]
   end
 
-  def get_lat
+  def get_long
     get_antipode_json[:attributes][:long]
+  end
+
+  def get_string_of_lat_and_long
+    get_antipode_json.values.join(",")
+  end
+
+  private
+
+  def get_antipode_json
+    JSON.parse(@connection.get.body, symbolize_names: true)[:data]
   end
 end
