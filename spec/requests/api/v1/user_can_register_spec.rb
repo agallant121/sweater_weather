@@ -8,7 +8,7 @@ RSpec.describe "As a user" do
 
     expect(response.status).to eq(201)
     result = JSON.parse(response.body, symbolize_names: true)[:data]
-    # require "pry"; binding.pry
+    require "pry"; binding.pry
     expect(result[:attributes].keys).to include(:api_key)
   end
 
