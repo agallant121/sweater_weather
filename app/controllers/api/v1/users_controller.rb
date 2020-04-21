@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   def create
+    # require "pry"; binding.pry
     user = User.new(user_params)
     # require "pry"; binding.pry
     if user.save
