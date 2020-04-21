@@ -16,11 +16,13 @@ RSpec.describe 'As a user', type: :request do
        destination: destination,
        api_key: api_key
      }
-     
+
      roadtrip_info = Roadtrip.new('Denver, CO', 'Pueblo, CO', api_key)
 
     expect(response.status).to eq(200)
     expect(roadtrip_info.travel_duration_text).to eq("1 hour 48 mins")
-    expect(roadtrip_info.get_destination_weather.class).to be(String)
+    expect(roadtrip_info.future_forecast_temperature.class).to be(Float)
+    expect(roadtrip_info.future_forecast_description.class).to be(String)
+    # expect(roadtrip_info.get_destination_weather.class).to be(String)
   end
 end
