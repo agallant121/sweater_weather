@@ -5,11 +5,11 @@ class Roadtrip
     @id = nil
     @origin = origin
     @destination = destination
-    @connection ||= GoogleMapService.new(origin, destination).connection
+    @road_trip_info ||= GoogleMapService.new(origin, destination).get_json_maps
   end
 
   def travel_duration_text
-    get_json_maps[:routes][0][:legs][0][:duration][:text]
+    @road_trip_info[:routes][0][:legs][0][:duration][:text]
   end
 
   def future_time
@@ -22,11 +22,5 @@ class Roadtrip
 
   def future_forecast_temperature
     Weather.new(@destination).hourly_weather[future_time][:temp]
-  end
-
-  private
-
-  def get_json_maps
-    JSON.parse(@connection.get.body, symbolize_names: true)
   end
 end
