@@ -5,8 +5,14 @@ class WeatherService
     @long = Geolocation.new(location).coords['lng']
   end
 
+  def get_weather_json
+    JSON.parse(connection.get.body, symbolize_names: true)
+  end
+
+  private
+
   def connection
-    conn = Faraday.new(
+    Faraday.new(
       url: 'https://api.openweathermap.org/data/2.5/onecall?',
       params: {
         appid: ENV['WEATHER_API_KEY'],
@@ -14,8 +20,5 @@ class WeatherService
         lon: @long,
         units: 'imperial'
       })
-
-    json = JSON.parse(conn.get.body, symbolize_names: true)
-    return json
   end
 end
