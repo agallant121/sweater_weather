@@ -3,7 +3,7 @@ class Photo
 
   def initialize(location)
     @id = nil
-    @photo_info = PhotoService.new(location).get_json
+    @photo_info ||= PhotoService.new(location).get_json
   end
 
   def photo_url

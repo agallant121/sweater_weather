@@ -3,7 +3,7 @@ class Weather
 
   def initialize(location)
     @id = nil
-    @weather_info = WeatherService.new(location).get_weather_json
+    @weather_info ||= WeatherService.new(location).get_weather_json
   end
 
   def current_weather
