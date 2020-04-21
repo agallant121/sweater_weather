@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "As a user" do
+  before :each do
+    User.destroy_all
+  end
 
   it 'gets 201 response if new user registration works' do
 
@@ -8,7 +11,6 @@ RSpec.describe "As a user" do
 
     expect(response.status).to eq(201)
     result = JSON.parse(response.body, symbolize_names: true)[:data]
-    require "pry"; binding.pry
     expect(result[:attributes].keys).to include(:api_key)
   end
 
@@ -17,7 +19,6 @@ RSpec.describe "As a user" do
 
     expect(response.status).to eq(400)
     result = JSON.parse(response.body, symbolize_names: true)
-    # require "pry"; binding.pry
     expect(result[0]).to eq("Password confirmation doesn't match Password")
   end
 
@@ -27,7 +28,6 @@ RSpec.describe "As a user" do
 
     expect(response.status).to eq(400)
     result = JSON.parse(response.body, symbolize_names: true)
-    # require "pry"; binding.pry
     expect(result[0]).to eq("Email has already been taken")
   end
 end
