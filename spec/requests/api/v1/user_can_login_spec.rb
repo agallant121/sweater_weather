@@ -8,7 +8,6 @@ RSpec.describe 'As a user' do
 
     expect(response.status).to eq(200)
     result = JSON.parse(response.body, symbolize_names: true)[:data]
-    # require "pry"; binding.pry
     expect(result[:attributes].keys).to include(:api_key)
   end
 
@@ -18,7 +17,6 @@ RSpec.describe 'As a user' do
 
     expect(response.status).to eq(400)
     result = JSON.parse(response.body, symbolize_names: true)
-    # require "pry"; binding.pry
     expect(result[:message]).to eq('invalid request')
   end
 end

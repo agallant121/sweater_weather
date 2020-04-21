@@ -3,19 +3,18 @@ class Weather
 
   def initialize(location)
     @id = nil
-    @connection = WeatherService.new(location).connection
+    @weather_info ||= WeatherService.new(location).get_weather_json
   end
 
   def current_weather
-    @connection[:current]
+    @weather_info[:current]
   end
 
   def hourly_weather
-    @connection[:hourly]
+    @weather_info[:hourly]
   end
 
   def future_daily_forecast
-    @connection[:daily]
+    @weather_info[:daily]
   end
-
 end

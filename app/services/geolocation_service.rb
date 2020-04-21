@@ -8,6 +8,8 @@ class GeolocationService
     JSON.parse(connection.get.body)['results'][0]['geometry']['location']
   end
 
+  private
+
   def connection
     Faraday.new(
       url: 'https://maps.googleapis.com/maps/api/geocode/json?',
