@@ -5,6 +5,12 @@ class PhotoService
     @location = location
   end
 
+  def get_json
+    JSON.parse(connection.get.body, symbolize_names: true)
+  end
+
+  private
+
   def connection
     Faraday.new(
       url: 'https://api.unsplash.com/search/?',
