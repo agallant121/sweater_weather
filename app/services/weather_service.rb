@@ -11,7 +11,8 @@ class WeatherService
       params: {
         appid: ENV['WEATHER_API_KEY'],
         lat: @lat,
-        lon: @long
+        lon: @long,
+        units: 'imperial'
       })
 
     json = JSON.parse(conn.get.body, symbolize_names: true)
