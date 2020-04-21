@@ -1,9 +1,13 @@
 class AntipodeService
 
-  def initialize(location)
-    @location = Geolocation.new(location).coords
-    @lat = @location["lat"]
-    @long = @location["lng"]
+  def initialize(coords)
+    # @location = location
+    @lat = coords["lat"]
+    @long = coords["lng"]
+  end
+
+  def get_antipode_json
+    JSON.parse(connection.get.body, symbolize_names: true)[:data]
   end
 
   def connection

@@ -1,14 +1,14 @@
 class Antipode
   def initialize(location)
+    @coords = Geolocation.new(location).coords
     @id = nil
-    @connection = AntipodeService.new(location).connection
+    @antipode = AntipodeService.new(@coords).get_antipode_json
     @forecast = Weather.new(location).current_weather
     @city_name = ReverseGeo(Antipode)
-    @coords = Geolocation.new(location).coords
   end
 
   def get_coords
-    get_antipode_json[:attributes]
+    @antipode[:attributes]
   end
 
   def get_lat
@@ -25,7 +25,7 @@ class Antipode
 
   private
 
-  def get_antipode_json
-    JSON.parse(@connection.get.body, symbolize_names: true)[:data]
-  end
+  # def get_antipode_json
+  #   JSON.parse(@connection.get.body, symbolize_names: true)[:data]
+  # end
 end
