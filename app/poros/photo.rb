@@ -6,11 +6,13 @@ class Photo
     @connection = PhotoService.new(location).connection
   end
 
-  def get_json
-    JSON.parse(@connection.get.body, symbolize_names: true)
-  end
-
   def photo_url
     get_json[:photos][:results][0][:urls][:raw]
+  end
+
+  private
+
+  def get_json
+    JSON.parse(@connection.get.body, symbolize_names: true)
   end
 end
