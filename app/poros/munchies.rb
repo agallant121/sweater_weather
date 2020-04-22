@@ -1,10 +1,10 @@
 class Munchies
-  attr_reader :id, :finish, :travel_time, :arrival_forecast, :get_restaurant_info_name, :get_restaurant_info_address
+  attr_reader :id, :end_location, :travel_time, :forecast, :restaurant
 
   def initialize(start, finish, food_type)
     @id = nil
     @start = start
-    @finish = finish
+    @end_location = finish
     @food_type = food_type
     @yelp_info = MunchiesService.new(start, finish, food_type).get_yelp_json
     @yelp_restaurant = MunchiesService.new(start, finish, food_type).get_restaurant_json
@@ -33,15 +33,23 @@ class Munchies
     travel_time.split.first.to_i + 1
   end
 
-  def arrival_forecast
-    Weather.new(@finish).hourly_weather[future_time][:weather][0][:description]
+  def forecast
+    Weather.new(@end_location).hourly_weather[future_time][:weather][0][:description]
   end
 
-  def get_restaurant_info_name
+  def name
     @yelp_restaurant[:businesses][0][:name]
   end
 
-  def get_restaurant_info_address
+  def address
     @yelp_restaurant[:businesses][0][:location][:address1]
+  end
+
+  def restaurant
+    {
+      name: name,
+      address: address
+    }
+
   end
 end
