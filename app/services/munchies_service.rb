@@ -5,11 +5,17 @@ class MunchiesService
     @finish = finish
     @food_type = food_type
     @api_key = ENV['YELP_API_KEY']
+    @arrival_time = Munchies.new(start, finish, food_type).future_arrival_value
   end
 
   def get_yelp_json
     JSON.parse(connection.get.env[:response_body], symbolize_names: true)
   end
+
+  # def get_yelp_arrival_info
+  #   x = JSON.parse(arrival_info.get.env[:response_body], symbolize_names: true)
+  #   require "pry"; binding.pry
+  # end
 
   private
 
@@ -19,20 +25,10 @@ class MunchiesService
     end
   end
 
-  def arrival_info
-    Faraday.new(url: "https://api.yelp.com/v3/businesses/search?term=#{@food_type}&location=#{@finish}&open_at=") do |faraday|
-      faraday.headers["Authorization"] = "Bearer #{@api_key}"
-    end
-  end
-
-  def get_arrival_json(future_arrival_value)
-    response = connection.get do |request|
-      request.params['location'] = @destination
-      request.params['term'] = @food_type
-      request.params['open_at'] = future_arrival_value
-    end
-    json = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
-  end
+  # def arrival_info
+  #   Faraday.new(url: "https://api.yelp.com/v3/businesses/search?term=#{@food_type}&location=#{@finish}&open_at=#{@arrival_time}") do |faraday|
+  #     faraday.headers["Authorization"] = "Bearer #{@api_key}"
+  #   end
+  # end
 
 end

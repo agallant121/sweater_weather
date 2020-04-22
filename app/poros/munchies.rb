@@ -18,6 +18,7 @@ class Munchies
     future_time = Time.now + time_now
     arrival_time = future_time.to_i
     return arrival_time
+    require "pry"; binding.pry
   end
 
   def end_location
