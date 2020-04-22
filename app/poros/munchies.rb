@@ -1,5 +1,5 @@
 class Munchies
-  attr_reader :id, :finish, :travel_time, :arrival_forecast
+  attr_reader :id, :finish, :travel_time, :arrival_forecast, :get_restaurant_info_name, :get_restaurant_info_address
 
   def initialize(start, finish, food_type)
     @id = nil
@@ -7,6 +7,7 @@ class Munchies
     @finish = finish
     @food_type = food_type
     @yelp_info = MunchiesService.new(start, finish, food_type).get_yelp_json
+    @yelp_restaurant = MunchiesService.new(start, finish, food_type).get_restaurant_json
     @road_trip_info ||= GoogleMapService.new(start, finish).get_json_maps
   end
 
@@ -18,7 +19,6 @@ class Munchies
     future_time = Time.now + time_now
     arrival_time = future_time.to_i
     return arrival_time
-    require "pry"; binding.pry
   end
 
   def end_location
@@ -35,5 +35,13 @@ class Munchies
 
   def arrival_forecast
     Weather.new(@finish).hourly_weather[future_time][:weather][0][:description]
+  end
+
+  def get_restaurant_info_name
+    @yelp_restaurant[:businesses][0][:name]
+  end
+
+  def get_restaurant_info_address
+    @yelp_restaurant[:businesses][0][:location][:address1]
   end
 end

@@ -12,6 +12,16 @@ class Roadtrip
     @road_trip_info[:routes][0][:legs][0][:duration][:text]
   end
 
+  def future_arrival_value
+    x = @road_trip_info[:routes][0][:legs][0][:duration][:value]
+    y = x / 60
+    z = y / 60
+    time_now = z + 1
+    future_time = Time.now + time_now
+    arrival_time = future_time.to_i
+    return arrival_time
+  end
+
   def future_time
     travel_duration_text.split.first.to_i + 1
   end
