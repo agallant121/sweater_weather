@@ -6,7 +6,7 @@ class MunchiesService
     @food_type = food_type
     @api_key = ENV['YELP_API_KEY']
   end
-
+  # I understand this value method might be hazy with SRP
   def value
     x = Roadtrip.new(start, finish)
     y = x.future_arrival_value
