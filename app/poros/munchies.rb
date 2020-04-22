@@ -1,5 +1,6 @@
 class Munchies
-  attr_reader :id, :finish,
+  attr_reader :id, :finish, :travel_time, :arrival_forecast
+
   def initialize(start, finish, food_type)
     @id = nil
     @start = start
@@ -21,11 +22,17 @@ class Munchies
 
   def end_location
     @road_trip_info[:routes][0][:legs][0][:end_address]
-    require "pry"; binding.pry
   end
 
-  # def travel_time
-  #   @road_trip_info[:routes][0][:legs][0][:duration][:text]
-  #   require "pry"; binding.pry
-  # end
+  def travel_time
+    @road_trip_info[:routes][0][:legs][0][:duration][:text]
+  end
+
+  def future_time
+    travel_time.split.first.to_i + 1
+  end
+
+  def arrival_forecast
+    Weather.new(@finish).hourly_weather[future_time][:weather][0][:description]
+  end
 end
